@@ -14,13 +14,13 @@ from kills.entity.setters import Setters
 
 logger = logging.getLogger(__name__)
 
-
 @api_view(['POST'])
 def register_dragon(request):
     result_builder = ResultBuilder()
     post_data = request.POST
     dragon_name = post_data.get('dragon_name', None)
-
+    print(post_data)
+    print("\n\n")
     if not dragon_name:
         return result_builder.set_fail().set_message("Name of the dragon not provided").get_json_response()
 
@@ -85,13 +85,13 @@ def kill_animal(request):
 
     date_time_str = post_data.get('datetime', None)
     number_of_animals_to_be_killed = int(post_data.get('number_of_animals', None))
-    dragon_name = post_data.get('dragon_name', None)
+    dragon_id = post_data.get('dragon_id', None)
     current_timestamp = get_datetime_object_from_string(date_time_str)
 
-    if not (date_time_str and number_of_animals_to_be_killed and dragon_name):
+    if not (date_time_str and number_of_animals_to_be_killed and dragon_id):
         return result_builder.set_fail().set_message("Necessary parameters missing").get_json_response()
 
-    dragon = DragonAccessor().get_dragon_by_name(dragon_name)
+    dragon = DragonAccessor().get_dragon_by_id(dragon_id)
     if not dragon:
         return result_builder.set_fail().set_message("Invalid Name").get_json_response()
 

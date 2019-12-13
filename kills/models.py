@@ -17,10 +17,6 @@ class Dragon(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        self.id = self.name + str(self.id)
-        super(Dragon, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Dragon'
         verbose_name_plural = 'Dragons'
@@ -52,10 +48,6 @@ class Rule(models.Model):
     status = models.CharField(max_length=10,
                               default=ACTIVE,
                               choices=status_choices)
-
-    def save(self, *args, **kwargs):
-        self.id = Rule.RULE + str(self.id)
-        super(Rule, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.maximum_kills
