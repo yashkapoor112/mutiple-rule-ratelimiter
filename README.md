@@ -44,3 +44,6 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
                 	If yes then process the kill
 
 
+## Important - 
+Run this command to use the settings of the apps
+export DJANGO_SETTINGS_MODULE=WorldOfTargayren.settings
