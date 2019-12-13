@@ -19,8 +19,7 @@ def register_dragon(request):
     result_builder = ResultBuilder()
     post_data = request.POST
     dragon_name = post_data.get('dragon_name', None)
-    print(post_data)
-    print("\n\n")
+
     if not dragon_name:
         return result_builder.set_fail().set_message("Name of the dragon not provided").get_json_response()
 

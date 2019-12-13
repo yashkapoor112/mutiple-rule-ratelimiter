@@ -42,13 +42,9 @@ class TestViews:
                                                                     ('kapoor', 1),
                                                                     ('', 0)])
     def test_register_dragon(self, name, expected_status_response):
-        print("this is name {}".format(name))
         data = get_register_post_request_data(name)
-        print(data)
         actual_response = get_post_response_from_api(url='/add/dragon/', data=data)
 
-        print(actual_response)
-        print("\n\n\n\n")
         assert actual_response['status-code'] == expected_status_response
 
     @pytest.mark.django_db
