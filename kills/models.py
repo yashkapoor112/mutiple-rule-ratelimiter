@@ -11,7 +11,7 @@ def get_unique_id():
 
 
 class Dragon(models.Model):
-    name = models.CharField(max_length=10, unique=True)
+    name = models.CharField(max_length=10)
     animals_killed = models.IntegerField(default=0)
 
     def __unicode__(self):

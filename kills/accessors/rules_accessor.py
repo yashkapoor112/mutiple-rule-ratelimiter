@@ -1,3 +1,5 @@
+from django.db.models import Max
+
 from kills.helpers import get_or_none
 from kills.models import *
 
