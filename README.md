@@ -40,8 +40,8 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Number of animals to be killed  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Timestamp – (%Y-%m-%d-%H:%M format)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Outputs –   
-                	Kill possible or not  
-                	If yes then process the kill  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Kill possible or not  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	If yes then process the kill  
 
 
 ## Important -   
