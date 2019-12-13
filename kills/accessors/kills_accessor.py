@@ -7,6 +7,7 @@ from kills.models import *
 
 log = logging.getLogger(__name__)
 
+
 class KillsAccessor(object):
 
     def __init__(self, dragon):
@@ -19,9 +20,15 @@ class KillsAccessor(object):
         return Kills.objects.filter(dragon=self.dragon, timestamp__gte=timestamp).order_by('-timestamp')
 
     def set_kill(self, timestamp, animals_killed):
-        return Kills.objects.create(timestamp=timestamp,
+        if not self.is_kill_possible(timestamp, animals_killed):
+            return None, "Kill not possible"
+
+        kill = Kills.objects.create(timestamp=timestamp,
                                     animals_killed=animals_killed,
                                     dragon=self.dragon)
+        if not kill:
+            return None, "Cannot create kill"
+        return kill, "Kill created Successfully"
 
     def is_kill_possible(self, current_timestamp, number_of_animals_to_be_killed):
         max_hours_of_rules = RulesAccessor().get_max_hours_of_all_rules()
@@ -44,18 +51,11 @@ class KillsAccessor(object):
                     if not rule.maximum_kills >= number_of_animals_to_be_killed:
                         return False
                 elif not (rule.maximum_hours >= time_difference and rule.maximum_kills >= total_kills_yet):
-                    log.error("Breakpoint 1")
-                    log.error("max hours {} ".format(rule.maximum_hours))
-                    log.error("time diff {} ".format(time_difference))
-                    log.error("max kills {} ".format(rule.maximum_kills))
-                    log.error("total kills {} ".format(total_kills_yet))
-
                     return False
 
         if not kills:
             for rule in rules:
                 if not rule.maximum_kills >= total_kills_yet:
-                    log.debug("Breakpoint 2")
                     return False
             return True
 

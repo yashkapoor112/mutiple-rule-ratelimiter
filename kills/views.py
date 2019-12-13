@@ -10,16 +10,15 @@ from kills.accessors.rules_accessor import RulesAccessor
 from kills.builders.result_builder import ResultBuilder
 from kills.helpers import get_or_none, get_datetime_object_from_string, get_difference_between_two_dates
 from kills.models import Dragon, Rule
-from kills.entity.kills_setters import KillsSetters
-
+from kills.entity.setters import Setters
 
 logger = logging.getLogger(__name__)
+
 
 @api_view(['POST'])
 def register_dragon(request):
     result_builder = ResultBuilder()
     post_data = request.POST
-
     dragon_name = post_data.get('dragon_name', None)
 
     if not dragon_name:
@@ -28,9 +27,9 @@ def register_dragon(request):
     if get_or_none(Dragon, name=dragon_name):
         return result_builder.set_fail().set_message("A dragon by this name already exists").get_json_response()
 
-    dragon_created = KillsSetters().create_dragon(dragon_name=dragon_name)
+    dragon_created = Setters().set_dragon(dragon_name=dragon_name)
     if dragon_created:
-        result = {}
+        result = { }
         result['id'] = dragon_created.id
         return result_builder.set_success(). \
             set_message("Dragon Registered"). \
@@ -53,9 +52,9 @@ def add_rule(request):
     if get_or_none(Rule, maximum_kills=maximum_kills, maximum_hours=maximum_hours):
         return result_builder.set_fail().set_message("Same Rule already exists").get_json_response()
 
-    rule_created = KillsSetters().create_rule(maximum_kills=maximum_kills, maximum_hours=maximum_hours)
+    rule_created = Setters().set_rule(maximum_kills=maximum_kills, maximum_hours=maximum_hours)
     if rule_created:
-        result = {}
+        result = { }
         result['id'] = rule_created.id
         return result_builder.set_success(). \
             set_message("Rule created"). \
@@ -68,7 +67,6 @@ def add_rule(request):
 def delete_rule(request):
     result_builder = ResultBuilder()
     post_data = request.POST
-
     id = post_data.get('id', None)
 
     if not id:
@@ -96,14 +94,9 @@ def kill_animal(request):
     dragon = DragonAccessor().get_dragon_by_name(dragon_name)
     if not dragon:
         return result_builder.set_fail().set_message("Invalid Name").get_json_response()
-    logger.error("Test!!")
-    if KillsAccessor(dragon=dragon).is_kill_possible(current_timestamp, number_of_animals_to_be_killed):
-        kill_created = KillsAccessor(dragon=dragon).set_kill(current_timestamp, number_of_animals_to_be_killed)
-        if not kill_created:
-            return result_builder.set_fail().set_message("Cannot create kill").get_json_response()
-        return result_builder.set_success().set_message("Kill successful").get_json_response()
 
-    return result_builder.set_fail().set_message("Kill not possible").get_json_response()
+    kill_created, message = KillsAccessor(dragon=dragon).set_kill(current_timestamp, number_of_animals_to_be_killed)
 
-
-
+    if not kill_created:
+        return result_builder.set_fail().set_message(message).get_json_response()
+    return result_builder.set_success().set_message(message).get_json_response()
