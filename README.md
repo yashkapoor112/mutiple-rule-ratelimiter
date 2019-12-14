@@ -13,19 +13,25 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` sudo -u postgres psql   
                                         CREATE DATABASE targayren;```  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Create role by name postgres with password 12345  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` ALTER ROLE username   
-                                        WITH PASSWORD 'password';```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` ALTER ROLE postgres   
+                                        WITH PASSWORD '12345';```  
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Make postgres the owner of the database  
 ```GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;```  
   •	Install requirements.txt in the virtual environment  
   ``` pip install -r requirements.txt```  
+  •	Make Migrations  
+  ```python manage.py makemigrations```  
+  •	Migrate the created migrations  
+  ```python manage.py migrate```  
+•	Run server to start the server  
+``` python manage.py runserver ```  
 
 ## Instructions – 
-  •	Project name is WorldOfTargayren  
+  •	Project name is WorldOfTargayren    
   •	Webapp name kills  
 
-## After installation complete – 
+## After installation complete –  
   •	Run predefined migrations  
   •	Make migrations for the new model structure  
   •	Apply new migrations  
@@ -56,3 +62,14 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
 ## Important -   
 Run this command to use the settings of the apps  
 export DJANGO_SETTINGS_MODULE=WorldOfTargayren.settings  
+
+## Exaplatation of Approach
+For each dragon the successful kills are stored.  
+Each Rule has a maximum_hours and maximum_kills that can takeplace. We are considering the word 'time_window' refer to the the particular rule timeframe.  
+
+Each successful kill has to make sure that no rule is being broken.  
+To make sure this we keep in mind a sliding window concept wherein we check if the incoming kill is satisfying every rule's time window.  
+
+At the time of killing we check the current kill parameters with previous kills to make sure that all the rules are being met in terms of animals killed in that time window.  
+ 
+If yes then we process the kills and add the kill to successful kills for that dragon.  
