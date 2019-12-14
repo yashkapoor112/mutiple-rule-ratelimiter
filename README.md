@@ -5,21 +5,21 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
   •	Clone the current repo.  
   •	Install python3  
   •	Create virtual environment in python (in the base directory)  
-     ```python3 -m venv tutorial-env```
+     ```python3 -m venv tutorial-env```   
   •	Installing Postgres   
-     ```sudo apt-get update
-        sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Create DB named targayren
+     ```sudo apt-get update  
+        sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Create DB named targayren  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` sudo -u postgres psql   
-                                        CREATE DATABASE targayren;```
+                                        CREATE DATABASE targayren;```  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Create role by name postgres with password 12345  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` ALTER ROLE username   
-                                        WITH PASSWORD 'password';```
+                                        WITH PASSWORD 'password';```  
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Make postgres the owner of the database  
-```GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;```
+```GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;```  
   •	Install requirements.txt in the virtual environment  
-  ``` pip install -r requirements.txt```
+  ``` pip install -r requirements.txt```  
 
 ## Instructions – 
   •	Project name is WorldOfTargayren  
