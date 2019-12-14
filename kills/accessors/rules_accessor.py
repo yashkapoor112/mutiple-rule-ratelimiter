@@ -10,9 +10,19 @@ class RulesAccessor(object):
         self.id = id
 
     def get_rule_by_id(self):
+        """
+        Gets a rule by id
+
+        :return: Rule()
+        """
         return get_or_none(Rule, id=self.id, status=Rule.ACTIVE)
 
     def delete_rule_by_id(self):
+        """
+        Deletes a rule by id
+
+        :return: Rule()
+        """
         rule = self.get_rule_by_id()
         if not rule:
             return None
@@ -21,9 +31,19 @@ class RulesAccessor(object):
         return rule
 
     def get_all_rules(self):
+        """
+        Fetch all active rules
+
+        :return: <QuerySet[]>
+        """
         return Rule.objects.filter(status=Rule.ACTIVE)
 
     def get_max_hours_of_all_rules(self):
+        """
+        Get the maximum of maximum_hours for all the rules
+
+        :return: Integer
+        """
         rules = Rule.objects.filter(status=Rule.ACTIVE)
         if not rules:
             return None

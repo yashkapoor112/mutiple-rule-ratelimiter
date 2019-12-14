@@ -1,21 +1,24 @@
-import json
 import logging
-from datetime import timedelta
 
-from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.decorators import api_view
 
 from kills.accessors.dragon_accessor import DragonAccessor
 from kills.accessors.kills_accessor import KillsAccessor
 from kills.accessors.rules_accessor import RulesAccessor
 from kills.builders.result_builder import ResultBuilder
-from kills.helpers import get_or_none, get_datetime_object_from_string, get_difference_between_two_dates
-from kills.models import Dragon, Rule
 from kills.entity.setters import Setters
+from kills.helpers import get_or_none, get_datetime_object_from_string
+from kills.models import Dragon, Rule
 
 logger = logging.getLogger(__name__)
 
+
 @api_view(['POST'])
 def register_dragon(request):
+    """
+    Registers a dragon
+
+    """
     result_builder = ResultBuilder()
     post_data = request.POST
     dragon_name = post_data.get('dragon_name', None)
@@ -39,6 +42,10 @@ def register_dragon(request):
 
 @api_view(['POST'])
 def add_rule(request):
+    """
+    Adds a rule for killing of animals.
+
+    """
     result_builder = ResultBuilder()
     post_data = request.POST
 
@@ -64,6 +71,10 @@ def add_rule(request):
 
 @api_view(['POST'])
 def delete_rule(request):
+    """
+    Deletes a single rule by id
+
+    """
     result_builder = ResultBuilder()
     post_data = request.POST
     id = post_data.get('id', None)
@@ -79,11 +90,16 @@ def delete_rule(request):
 
 @api_view(['POST'])
 def kill_animal(request):
+    """
+    Checks if a dragon can kill some number of animals.
+    If yes then perform the kill.
+
+    """
     result_builder = ResultBuilder()
     post_data = request.POST
 
     date_time_str = post_data.get('datetime', None)
-    number_of_animals_to_be_killed = int(post_data.get('number_of_animals', None))
+    number_of_animals_to_be_killed = int(post_data.get('number_of_animals', '0'))
     dragon_id = post_data.get('dragon_id', None)
     current_timestamp = get_datetime_object_from_string(date_time_str)
 

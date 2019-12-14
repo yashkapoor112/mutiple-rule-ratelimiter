@@ -1,6 +1,5 @@
 import requests
 import json
-from datetime import date, timedelta
 import pytest
 from pytest_mock import mocker
 from django.test import Client
@@ -69,10 +68,10 @@ class TestViews:
 
         assert actual_response['status-code'] == expected_status
 
-
-    @pytest.mark.parametrize(('datetime', 'number_of_animals', 'dragon_id', 'expected_status'), [('2020-01-01-00:00', 2, 1, 1),
-                                                                                                 ('2020-01-01-01:00', 2, 1, 1),
-                                                                                                 ('2020-01-01-02:00', 2, 1, 1)])
+    @pytest.mark.parametrize(('datetime', 'number_of_animals', 'dragon_id', 'expected_status'),
+                             [('2020-01-01-00:00', 2, 1, 1),
+                              ('2020-01-01-01:00', 2, 1, 1),
+                              ('2020-01-01-02:00', 2, 1, 1)])
     def test_kill_animal(self, mocker, datetime, number_of_animals, dragon_id, expected_status):
         data = get_kill_post_request_data(datetime, number_of_animals, dragon_id)
         mocker.patch.object(DragonAccessor, 'get_dragon_by_id',
