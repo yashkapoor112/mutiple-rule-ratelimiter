@@ -7,8 +7,8 @@ Analogy of a rate limiter where dynamic rules can be created and deleted.
   •	Create virtual environment in python (in the base directory)  
      ```python3 -m venv tutorial-env```   
   •	Installing Postgres   
-     ```sudo apt-get update  
-        sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib```  
+     ```sudo apt-get update```
+     ```sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib```  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o	Create DB named targayren  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``` sudo -u postgres psql   
                                         CREATE DATABASE targayren;```  
